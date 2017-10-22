@@ -66,6 +66,7 @@ return [
         ],
         "session" => [
             "shared" => true,
+            "active" => true,
             "callback" => function () {
                 $obj = new \Anax\Session\SessionConfigurable();
                 $obj->configure("session.php");
@@ -80,7 +81,7 @@ return [
         "pageRender" => [
             "shared" => true,
             "callback" => function () {
-                $obj = new \Anax\Page\PageRender();
+                $obj = new \Almrooth\Page\PageRender();
                 $obj->setDI($this);
                 return $obj;
             }
@@ -105,6 +106,62 @@ return [
             "shared" => true,
             "callback" => function () {
                 $obj = new \Anax\Page\FlatFileContentController();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
+        "db" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \Anax\Database\DatabaseQueryBuilder();
+                $obj->configure("database.php");
+                return $obj;
+            }
+        ],
+        "baseController" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \App\Controllers\BaseController();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
+        "userController" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \App\Controllers\UserController();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
+        "questionsController" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \App\Controllers\QuestionsController();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
+        "tagsController" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \App\Controllers\TagsController();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
+        "answersController" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \App\Controllers\AnswersController();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
+        "adminController" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \App\Controllers\AdminController();
                 $obj->setDI($this);
                 return $obj;
             }

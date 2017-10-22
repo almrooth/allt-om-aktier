@@ -1,1 +1,374 @@
-/** A css file */
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: "Montserrat", Arial, Helvetica, sans-serif;
+    background-color: #fafafa;
+}
+
+/* Basics */
+
+p {
+    margin-bottom: 1em;
+}
+
+h1, h2, h3, h4, h5 {
+    margin-bottom: 1em;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul, ol {
+    margin-left: 1em;
+}
+
+pre,
+code {
+    margin-bottom: 1em;
+    padding: .5em 2em;
+    background-color: #E8F5E9;
+}
+
+table {
+    text-align: left;
+}
+
+/* Forms */
+
+.form-wrap {
+    background-color: #fff;
+    padding: 1em;
+    border: 1px solid #ccc;
+}
+
+label {
+    display: block;
+    margin-bottom: .5em;
+}
+
+input,
+textarea,
+select {
+    padding: .5em;
+    margin-bottom: 1em;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+textarea {
+    min-height: 10em;
+}
+
+.btn {
+    display: inline-block;
+    padding: .5em;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.btn:hover {
+    background-color: #eee;
+}
+
+.btn-green {
+    background-color: #81C784;
+    color: #000;
+}
+
+.btn-green:hover {
+    background-color: #66BB6A;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-between-center {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-around-center {
+    justify-content: space-around;
+    align-content: center;
+}
+/* Header */
+
+.header-wrap {
+    border-bottom: 1px solid #ccc;
+    padding: 1.5em;
+    margin-bottom: 2em;
+    background-color: #fff;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header > div {
+    display: flex;
+}
+
+.header-logo {
+    color: #66BB6A;
+    font-weight: bold;
+    font-size: 1.75em;
+    margin-right: 2em;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar a {
+    margin-right: 1em;
+    color: #000;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.user-nav {
+    display: flex;
+}
+
+.user-nav * {
+    margin-left: 1em;
+}
+
+/* Main */
+
+.main-wrap {
+    max-width: 1080px;
+    margin: auto;
+    padding: 1em;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+.main-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+/* Footer */
+
+.footer-wrap {
+    border-top: 1px solid #ccc;
+    padding: 1.5em;
+    margin-top: 2em;
+    background-color: #fff;
+}
+
+/* User profile */
+.profile {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+.profile .gravatar {
+    margin-right: 1em;
+} 
+
+.profile table td{
+    padding: .5em;
+}
+
+/* All users */
+.users {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user {
+    display: flex;
+    padding: 1em;
+    margin: 1em;
+    background-color: #fff;
+
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.user img {
+    margin-right: 1em;
+}
+
+/* Questions */
+
+.question {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 1em;
+    background-color: #fff;
+}
+
+.question > * {
+    padding: 1em;
+}
+
+.question header {
+    border-bottom: 1px solid #ccc;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.question header h2 {
+    margin: 0;
+}
+
+.question header .created,
+.question header .by {
+    font-size: .8em;
+    color: #757575;
+}
+
+.question footer {
+    border-top: 1px solid #ccc;
+    font-size: .8em;
+    padding: 0;
+}
+
+.question footer > * {
+    padding: 1em;
+}
+
+.question-tags {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+
+.question footer .summary {
+    text-align: center;
+}
+
+/* Tags */
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 1em;
+    margin: 1em;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* Meta info in question/answer/comment header */
+
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: right;
+    align-items: center;
+}
+
+.meta > div {
+    margin-right: 1em;
+}
+
+.meta .gravatar {
+    max-width: 50px;
+}
+
+/* Answers */
+.answer {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 0 1em;
+    margin-bottom: 1em;
+    background-color: #fff;
+}
+
+.answer > * {
+    padding: 1em;
+}
+
+.answer footer {
+    border-top: 1px solid #ccc;
+    font-size: .8em;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.answer footer > * {
+    padding: 1em;
+}
+
+
+/* Comments */
+.comment {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 0 2em;
+    margin-bottom: 1em;
+    background-color: #fff;
+}
+
+.comment > * {
+    padding: 1em;
+}
+
+.comment footer {
+    border-top: 1px solid #ccc;
+    font-size: .8em;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment footer > * {
+    padding: 1em;
+}
+
+.admin table {
+    width: 100%;
+}
+
+.stats {
+    margin-top: 5em;
+    padding: 5em 0;
+    border-top: 1px solid #ccc;
+}
+
+.stats > div {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 1em;
+    flex-basis: 30%;
+}
+
+.stats > div li {
+    padding: .25em 0;
+}
+
+.stats > div ol {
+    margin-bottom: 1em;
+}

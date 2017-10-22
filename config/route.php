@@ -28,6 +28,36 @@ return [
             "file" => __DIR__ . "/route/flat-file-content.php",
         ],
         [
+            // The base pages for the site
+            "mount" => null,
+            "file" => __DIR__ . "/route/baseController.php",
+        ],
+        [
+            // User pages
+            "mount" => "user",
+            "file" => __DIR__ . "/route/userController.php",
+        ],
+        [
+            // Questions pages
+            "mount" => "questions",
+            "file" => __DIR__ . "/route/questionsController.php",
+        ],
+        [
+            // Tags pages
+            "mount" => "tags",
+            "file" => __DIR__ . "/route/tagsController.php",
+        ],
+        [
+            // Answers pages
+            "mount" => "answers",
+            "file" => __DIR__ . "/route/answersController.php",
+        ],
+        [
+            // Answers pages
+            "mount" => "admin",
+            "file" => __DIR__ . "/route/adminController.php",
+        ],
+        [
             // Keep this last since its a catch all
             "mount" => null,
             "sort" => 999,

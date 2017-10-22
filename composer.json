@@ -22,7 +22,8 @@
     "autoload": {
         "psr-4": {
             "Anax\\": "src/",
-            "Almrooth\\": "src/"
+            "Almrooth\\": "src/",
+            "App\\": "src/"
         }
     }
 }
