@@ -97,7 +97,8 @@ class UserController implements
         $user->setDb($this->di->get("db"));
 
         $data = [
-            "user" => $user->get($id)
+            "user" => $user->get($id),
+            "activity" => $user->activity($id)
         ];
 
         $view->add("user/profile", $data);

@@ -6,8 +6,10 @@ use \Anax\DI\InjectionAwareInterface;
 use \Anax\DI\InjectionAwareTrait;
 use \App\User\User;
 use \App\Question\Question;
+use \App\Comment\Comment;
+use \App\Answer\Answer;
 
-use \App\User\HTMLForm\UpdateUserForm;
+use \App\User\HTMLForm\AdminUpdateUserForm;
 
 /**
  * A controller for the admin pages.
@@ -55,7 +57,7 @@ class AdminController implements InjectionAwareInterface
         $title      = "Updatera profil";
         $view       = $this->di->get("view");
         $pageRender = $this->di->get("pageRender");
-        $form       = new UpdateUserForm($this->di, $id);
+        $form       = new AdminUpdateUserForm($this->di, $id);
 
         $form->check();
 

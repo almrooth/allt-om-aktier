@@ -1,10 +1,22 @@
 <div class="comment">
+    <?php if ($this->di->get("session")->get("user_id") == $comment->user_id || $this->di->get("session")->get("user_role") == "admin") : ?>
+        <div class="menu flex flex-between-center">
+            <a class="btn" href="<?= $this->di->get('url')->create('comments/' . $comment->id . '/update') ?>">Redigera</a>
+            <a class="btn" href="<?= $this->di->get('url')->create('comments/' . $comment->id . '/delete') ?>">Radera</a>
+        </div>
+    <?php endif; ?>
     <div class="content">
         <?= $comment->content ?>
     </div>
     <footer>
         <div class="summary">
             
+        </div>
+        <div>
+            Betyg: <?= $comment->votes ?>
+            Rösta: 
+            <a class="btn" href="<?= $this->di->get('url')->create('vote/comment/' . $comment->id . '/up') ?>">+</a>
+            <a class="btn" href="<?= $this->di->get('url')->create('vote/comment/' . $comment->id . '/down') ?>">-</a>
         </div>
         <div class="meta">
             <div>

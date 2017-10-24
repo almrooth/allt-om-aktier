@@ -46,5 +46,17 @@ return [
             "path" => "questions",
             "callable" => ["adminController", "getQuestions"],
         ],
+        [
+            "info" => "Show all answers",
+            "requestMethod" => "get",
+            "path" => "answers",
+            "callable" => ["adminController", "getAnswers"],
+        ],
+        [
+            "info" => "Show all comments",
+            "requestMethod" => "get",
+            "path" => "comments",
+            "callable" => ["adminController", "getComments"],
+        ],
     ]
 ];

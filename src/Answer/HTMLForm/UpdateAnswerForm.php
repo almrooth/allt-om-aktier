@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Comment\HTMLForm;
+namespace App\Answer\HTMLForm;
 
 use \Anax\HTMLForm\FormModel;
 use \Anax\DI\DIInterface;
-use \App\Comment\Comment;
+use \App\Answer\Answer;
 
 /**
  * Example of FormModel implementation.
  */
-class UpdateCommentForm extends FormModel
+class UpdateAnswerForm extends FormModel
 {
     /**
      * Constructor injects with DI container.
@@ -19,7 +19,7 @@ class UpdateCommentForm extends FormModel
     public function __construct(DIInterface $di, $id)
     {
         parent::__construct($di);
-        $comment = $this->getItemDetails($id);
+        $answer = $this->getItemDetails($id);
         $this->form->create(
             [
                 "id" => __CLASS__,
@@ -30,13 +30,13 @@ class UpdateCommentForm extends FormModel
                     "type" => "hidden",
                     "validation" => ["not_empty"],
                     "readonly" => true,
-                    "value" => $comment->id,
+                    "value" => $answer->id,
                 ],
                 "content" => [
                     "type"          => "textarea",
                     "label"         => "Kommentar",
                     "validation"    => ["not_empty"],
-                    "value"         => $comment->content,
+                    "value"         => $answer->content,
                 ],
 
                 "submit" => [
@@ -55,14 +55,14 @@ class UpdateCommentForm extends FormModel
      *
      * @param integer $id get details on item with id.
      *
-     * @return Comment true if okey, false if something went wrong.
+     * @return Question true if okey, false if something went wrong.
      */
     public function getItemDetails($id)
     {
-        $comment = new Comment();
-        $comment->setDb($this->di->get("db"));
-        $comment->find("id", $id);
-        return $comment;
+        $answer = new Answer();
+        $answer->setDb($this->di->get("db"));
+        $answer->find("id", $id);
+        return $answer;
     }
 
 
@@ -74,13 +74,13 @@ class UpdateCommentForm extends FormModel
      */
     public function callbackSubmit()
     {
-        $comment = new Comment();
-        $comment->setDb($this->di->get("db"));
-        $comment->find("id", $this->form->value("id"));
-        $comment->content   = $this->form->value("content");
-        $comment->save();
+        $answer = new Answer();
+        $answer->setDb($this->di->get("db"));
+        $answer->find("id", $this->form->value("id"));
+        $answer->content   = $this->form->value("content");
+        $answer->save();
 
         // Redirect to profile page
-        $this->di->get("response")->redirect("questions/" . $comment->question_id);
+        $this->di->get("response")->redirect("questions/" . $answer->question_id);
     }
 }

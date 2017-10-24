@@ -53,9 +53,19 @@ return [
             "file" => __DIR__ . "/route/answersController.php",
         ],
         [
+            // Comments pages
+            "mount" => "comments",
+            "file" => __DIR__ . "/route/commentsController.php",
+        ],
+        [
             // Answers pages
             "mount" => "admin",
             "file" => __DIR__ . "/route/adminController.php",
+        ],
+        [
+            // Vote controller
+            "mount" => "vote",
+            "file" => __DIR__ . "/route/voteController.php",
         ],
         [
             // Keep this last since its a catch all

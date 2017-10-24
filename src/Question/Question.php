@@ -9,6 +9,7 @@ use \App\Tag\Tag;
 use \App\Tag\TagQuestion;
 use \App\Answer\Answer;
 use \App\Comment\Comment;
+use \App\Vote\Vote;
 
 /**
  * A database driven model.
@@ -52,6 +53,7 @@ class Question extends ActiveRecordModel
             $question->tags     = $this->tags($question->id);
             $question->answers  = $this->answers($question->id);
             $question->comments = $this->comments($question->id);
+            $question->votes    = $this->votes($question->id);
             return $question;
         }, $questions);
 
@@ -73,6 +75,27 @@ class Question extends ActiveRecordModel
         $question->tags     = $this->tags($question->id);
         $question->answers  = $this->answers($question->id);
         $question->comments = $this->comments($question->id);
+        $question->votes    = $this->votes($question->id);
+        return $question;
+    }
+
+
+    /**
+     * Get a question by id sorted
+     *
+     * @param integer $id the id of question to get
+     * @param string column to sort by
+     * @return object the requested question
+     */
+    public function getSorted($id, $sortBy)
+    {
+        $question           = $this->find("id", $id);
+        $question->content  = $this->parseContent($question->content);
+        $question->user     = $this->user($question->user_id);
+        $question->tags     = $this->tags($question->id);
+        $question->answers  = $this->answers($id, $sortBy);
+        $question->comments = $this->comments($question->id);
+        $question->votes    = $this->votes($question->id);
         return $question;
     }
 
@@ -136,11 +159,11 @@ class Question extends ActiveRecordModel
      * @param int $id of question
      * @return array of object answer
      */
-    public function answers($id)
+    public function answers($id, $sortBy = "created")
     {
         $answer = new Answer();
         $answer->setDb($this->db);
-        $answers = $answer->getAllByQ($id);
+        $answers = $answer->getAllByQ($id, $sortBy);
 
         return $answers;
     }
@@ -159,5 +182,21 @@ class Question extends ActiveRecordModel
         $comments = $comment->getAllByQ($id);
 
         return $comments;
+    }
+
+
+    /**
+     * Return votes of question
+     *
+     * @param int $id of question
+     * @return int of votes
+     */
+    public function votes($id)
+    {
+        $vote = new Vote();
+        $vote->setDb($this->db);
+        $votes = $vote->getVotes("question", $id);
+        
+        return ($votes == null) ? 0 : $votes;
     }
 }

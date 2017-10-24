@@ -9,7 +9,7 @@ use \App\User\User;
 /**
  * Example of FormModel implementation.
  */
-class UpdateUserForm extends FormModel
+class AdminUpdateUserForm extends FormModel
 {
     /**
      * Constructor injects with DI container.
@@ -39,6 +39,16 @@ class UpdateUserForm extends FormModel
                     "label" => "Användarnamn",
                     "readonly" => true,
                     "value" => $user->username,
+                ],
+
+                "role" => [
+                    "type"        => "select",
+                    "label"       => "Användartyp",
+                    "options"     => [
+                        "admin"   => "admin",
+                        "user"    => "user",
+                    ],
+                    "value"    => $user->role,
                 ],
 
                 "email" => [
@@ -86,7 +96,7 @@ class UpdateUserForm extends FormModel
         $user = new User();
         $user->setDb($this->di->get("db"));
         $user->find("id", $this->form->value("id"));
-        // $user->role     = $this->form->value("role");
+        $user->role     = $this->form->value("role");
         $user->email    = $this->form->value("email");
         $user->save();
 

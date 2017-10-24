@@ -5,6 +5,7 @@ namespace App\User;
 use \Anax\Database\ActiveRecordModel;
 use \App\Question\Question;
 use \App\Answer\Answer;
+use \App\Comment\Comment;
 
 /**
  * A database driven model.
@@ -83,6 +84,7 @@ class User extends ActiveRecordModel
         $user                       = $this->find("id", $id);
         $user->questions            = $this->questions($id);
         $user->answeredQuestions    = $this->answeredQuestions($id);
+        $user->score                = $this->score($id);
         return $user;
     }
 
@@ -106,5 +108,110 @@ class User extends ActiveRecordModel
                         ->where("aoa_answers.user_id = ?")
                         ->execute([$id])
                         ->fetchAll();
+    }
+
+
+    // Return the score of a user
+    public function score($id)
+    {
+        // Questions
+        $questions =   $this->db->connect()
+                                ->select()
+                                ->from("aoa_questions")
+                                ->where("user_id = ?")
+                                ->execute([$id])
+                                ->fetchAll();
+        
+        $qScore = count($questions) * 5;
+
+        foreach ($questions as $question) {
+            $score = $this->db->connect()
+                              ->select("sum(score) as score")
+                              ->from("aoa_votes")
+                              ->where("question_id = ?")
+                              ->execute([$question->id])
+                              ->fetch()->score;
+            
+            $qScore += $score;
+        }
+
+        // Answers
+        $answers =     $this->db->connect()
+                                ->select()
+                                ->from("aoa_answers")
+                                ->where("user_id = ?")
+                                ->execute([$id])
+                                ->fetchAll();
+
+        $aScore = count($answers) * 10;
+
+        foreach ($answers as $answer) {
+            $score =   $this->db->connect()
+                                ->select("sum(score) as score")
+                                ->from("aoa_votes")
+                                ->where("answer_id = ?")
+                                ->execute([$answer->id])
+                                ->fetch()->score;
+
+            $aScore += $score;
+        }
+
+        // Comments
+        $comments =    $this->db->connect()
+                                ->select()
+                                ->from("aoa_comments")
+                                ->where("user_id = ?")
+                                ->execute([$id])
+                                ->fetchAll();
+
+        $cScore = count($comments) * 5;
+
+        foreach ($comments as $comment) {
+            $score =   $this->db->connect()
+                                ->select("sum(score) as score")
+                                ->from("aoa_votes")
+                                ->where("comment_id = ?")
+                                ->execute([$comment->id])
+                                ->fetch()->score;
+
+            $cScore += $score;
+        }
+        
+        return $qScore + $aScore + $cScore;
+    }
+
+    public function activity($id)
+    {
+        $activity = new \stdClass();
+
+        $activity->questions = $this->db->connect()
+                                        ->select("count(*) as count")
+                                        ->from("aoa_questions")
+                                        ->where("user_id = ?")
+                                        ->execute([$id])
+                                        ->fetch()->count;
+
+        $activity->answers = $this->db->connect()
+                                      ->select("count(*) as count")
+                                      ->from("aoa_answers")
+                                      ->where("user_id = ?")
+                                      ->execute([$id])
+                                      ->fetch()->count;
+
+        $activity->comments =  $this->db->connect()
+                                        ->select("count(*) as count")
+                                        ->from("aoa_comments")
+                                        ->where("user_id = ?")
+                                        ->execute([$id])
+                                        ->fetch()->count;
+
+        $activity->votes = $this->db->connect()
+                                    ->select("count(*) as count")
+                                    ->from("aoa_votes")
+                                    ->where("user_id = ?")
+                                    ->execute([$id])
+                                    ->fetch()->count;
+
+        return $activity;
     }
 }

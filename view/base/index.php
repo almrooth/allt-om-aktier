@@ -6,7 +6,7 @@
     <div class="questions">
         <h3>Senaste frågorna</h3>
         <ol>
-            <?php foreach($questions as $question) : ?>
+            <?php foreach ($questions as $question) : ?>
                 <li><a href="<?= $this->di->get('url')->create('questions/' . $question->id) ?>"><?= $question->title ?></a></li>
             <?php endforeach; ?>
         </ol>
@@ -15,7 +15,7 @@
     <div class="">
         <h3>Populäraste taggarna</h3>
         <ol>
-            <?php foreach($tags as $tag) : ?>
+            <?php foreach ($tags as $tag) : ?>
                 <li><a href="<?= $this->di->get('url')->create('tags/' . $tag->tag_id) ?>"><?= $tag->tag ?> (<?= $tag->nr ?>)</a></li>
             <?php endforeach; ?>
         </ol>
@@ -24,7 +24,7 @@
     <div class="">
         <h3>Mest aktiva användare</h3>
         <ol>
-            <?php foreach($users as $user) : ?>
+            <?php foreach ($users as $user) : ?>
                 <li><a href="<?= $this->di->get('url')->create('user/profile/' . $user->id) ?>"><?= $user->username ?> (<?= $user->activity ?>)</a></li>
             <?php endforeach; ?>
         </ol>

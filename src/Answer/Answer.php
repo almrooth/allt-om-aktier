@@ -7,11 +7,13 @@ use \Anax\TextFilter\TextFilter;
 use \App\User\User;
 use \App\Comment\Comment;
 use \App\Question\Question;
+use \App\Vote\Vote;
 
 /**
  * A database driven model.
  *
  * @SuppressWarnings("camelcase")
+ * @SuppressWarnings("shortVariable")
  */
 class Answer extends ActiveRecordModel
 {
@@ -30,6 +32,7 @@ class Answer extends ActiveRecordModel
     public $question_id;
     public $user_id;
     public $content;
+    public $accepted;
     public $created;
     public $updated;
     public $deleted;
@@ -40,16 +43,36 @@ class Answer extends ActiveRecordModel
      *
      * @return array of object, answers
      */
-    public function getAllByQ($id)
+    public function getAllByQ($id, $sortBy)
     {
-        $answers = $this->findallWhere("question_id = ?", $id);
+        // $answers = $this->findallWhere("question_id = ?", $id);
+        $answers = $this->db->connect()
+                            ->select()
+                            ->from($this->tableName)
+                            ->where("question_id = ?")
+                            ->orderBy("created DESC")
+                            ->execute([$id])
+                            ->fetchAllClass(get_class($this));
 
         $answers = array_map(function ($answer) {
             $answer->content  = $this->parseContent($answer->content);
             $answer->user     = $this->user($answer->user_id);
             $answer->comments = $this->comments($answer->id);
+            $answer->votes    = $this->votes($answer->id);
             return $answer;
         }, $answers);
+
+        if ($sortBy == "votes") {
+            usort($answers, function ($a, $b) {
+                if ($a->votes == $b->votes) {
+                    return 0;
+                } elseif ($a->votes > $b->votes) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+        }
 
         return $answers;
     }
@@ -68,8 +91,27 @@ class Answer extends ActiveRecordModel
         $answer->user     = $this->user($answer->user_id);
         $answer->comments = $this->comments($answer->id);
         $answer->question = $this->question($answer->question_id);
+        $answer->votes    = $this->votes($answer->id);
 
         return $answer;
+    }
+
+
+    public function accept($id)
+    {
+        $answer     = $this->find("id", $id);
+
+        if ($answer->accepted) {
+            $this->db->connect()
+                     ->update($this->tableName, ["accepted"])
+                     ->where("id = ?")
+                     ->execute([false, $id]);
+        } else {
+            $this->db->connect()
+                     ->update($this->tableName, ["accepted"])
+                     ->where("id = ?")
+                     ->execute([true, $id]);
+        }
     }
 
 
@@ -121,5 +163,21 @@ class Answer extends ActiveRecordModel
         $comments = $comment->getAllByA($id);
 
         return $comments;
+    }
+
+
+    /**
+     * Return votes of answer
+     *
+     * @param int $id of answer
+     * @return int of votes
+     */
+    public function votes($id)
+    {
+        $vote = new Vote();
+        $vote->setDb($this->db);
+        $votes = $vote->getVotes("answer", $id);
+
+        return ($votes == null) ? 0 : $votes;
     }
 }

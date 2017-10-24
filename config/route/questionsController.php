@@ -23,6 +23,18 @@ return [
             "callable" => ["questionsController", "getPostComment"],
         ],
         [
+            "info" => "Update a question",
+            "requestMethod" => "get|post",
+            "path" => "{id:digit}/update",
+            "callable" => ["questionsController", "getPostUpdate"],
+        ],
+        [
+            "info" => "Delete a question",
+            "requestMethod" => "get",
+            "path" => "{id:digit}/delete",
+            "callable" => ["questionsController", "getDelete"],
+        ],
+        [
             "info" => "Show a question and its answers",
             "requestMethod" => "get|post",
             "path" => "{id:digit}",

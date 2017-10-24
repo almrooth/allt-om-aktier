@@ -149,6 +149,29 @@ textarea {
     margin-left: 1em;
 }
 
+.navbar-dropdown {
+    position: relative;
+    white-space: nowrap;
+}
+
+.navbar-dropdown div {
+    display: none;
+    position: absolute;
+    right: -50%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.navbar-dropdown:hover div {
+    display: block;
+}
+
+.navbar-dropdown a {
+    display: block;
+    padding: 1em;
+    margin: 0;
+    border: 1px solid #ccc;
+}
 /* Main */
 
 .main-wrap {
@@ -211,6 +234,20 @@ textarea {
 
 .user img {
     margin-right: 1em;
+}
+
+
+.menu {
+    border-bottom: 1px solid #ccc;
+    padding: .5em !important;
+}
+
+.menu .btn {
+    padding: .25em !important;
+}
+
+.menu a {
+    color: #757575;
 }
 
 /* Questions */
@@ -321,6 +358,9 @@ textarea {
     padding: 1em;
 }
 
+.answer .accepted {
+    background-color: #C8E6C9;
+}
 
 /* Comments */
 .comment {
@@ -371,4 +411,19 @@ textarea {
 
 .stats > div ol {
     margin-bottom: 1em;
+}
+
+.activity {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 1em;
+    margin: 2em;
+}
+
+.activity td, th {
+    padding: 0 1em;
+}
+
+.activity tr td:nth-child(odd) {
+    font-weight: bold;
 }

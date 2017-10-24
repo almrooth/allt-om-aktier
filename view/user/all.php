@@ -1,7 +1,7 @@
 <h1>Alla användare</h1>
 
 <div class="users">
-    <?php foreach($users as $user) : ?>
+    <?php foreach ($users as $user) : ?>
         <div class="user">
             <img src="<?= $user->gravatar() ?>" alt="Profilbild">
             <div>

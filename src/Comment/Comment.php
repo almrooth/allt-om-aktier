@@ -5,6 +5,7 @@ namespace App\Comment;
 use \Anax\Database\ActiveRecordModel;
 use \Anax\TextFilter\TextFilter;
 use \App\User\User;
+use \App\Vote\Vote;
 
 /**
  * A database driven model.
@@ -39,6 +40,7 @@ class Comment extends ActiveRecordModel
             $user = $this->user($comment->user_id);
             $comment->gravatar = $this->gravatar($user->email);
             $comment->username = $user->username;
+            $comment->votes    = $this->votes($comment->id);
             return $comment;
         }, $comments);
     }
@@ -49,6 +51,7 @@ class Comment extends ActiveRecordModel
         $comment            = $this->find("id", $id);
         $comment->content   = $this->parseContent($comment->content);
         $comment->user      = $this->user($comment->user_id);
+        $comment->votes    = $this->votes($comment->id);
 
         return $comment;
     }
@@ -61,6 +64,7 @@ class Comment extends ActiveRecordModel
         $comments = array_map(function ($comment) {
             $comment->content   = $this->parseContent($comment->content);
             $comment->user      = $this->user($comment->user_id);
+            $comment->votes    = $this->votes($comment->id);
             return $comment;
         }, $comments);
 
@@ -75,6 +79,7 @@ class Comment extends ActiveRecordModel
         $comments = array_map(function ($comment) {
             $comment->content   = $this->parseContent($comment->content);
             $comment->user      = $this->user($comment->user_id);
+            $comment->votes    = $this->votes($comment->id);
             return $comment;
         }, $comments);
 
@@ -100,5 +105,21 @@ class Comment extends ActiveRecordModel
         $user = new User();
         $user->setDb($this->db);
         return $user->find("id", $id);
+    }
+
+
+    /**
+     * Return votes of comment
+     *
+     * @param int $id of comment
+     * @return int of votes
+     */
+    public function votes($id)
+    {
+        $vote = new Vote();
+        $vote->setDb($this->db);
+        $votes = $vote->getVotes("comment", $id);
+
+        return ($votes == null) ? 0 : $votes;
     }
 }

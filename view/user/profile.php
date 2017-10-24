@@ -27,10 +27,36 @@
 </article>
 
 <div class="flex flex-around-center">
+    <table class="activity">
+        <thead>
+            <th>Användaraktivitet</th>
+        </thead>
+        <tr>
+            <td>Frågor</td>
+            <td><?= $activity->questions ?></td>
+            <td>Röstningar</td>
+            <td><?= $activity->votes ?></td>
+        </tr>
+        <tr>
+            <td>Svar</td>
+            <td><?= $activity->answers ?></td>
+            <td>Rank</td>
+            <td><?= $user->score ?></td>
+        </tr>
+        <tr>
+            <td>Kommentarer</td>
+            <td><?= $activity->comments ?></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+<div class="flex flex-around-center">
     <div>
         <h2>Frågor (<?= count($user->questions) ?> st)</h2>
         <ol>
-            <?php foreach($user->questions as $question) : ?>
+            <?php foreach ($user->questions as $question) : ?>
                 <li><a href="<?= $this->di->get('url')->create('questions/' . $question->id) ?>"><?= $question->title ?></a></li>
             <?php endforeach; ?>
         </ol>
@@ -38,7 +64,7 @@
     <div>
         <h2>Besvarade frågor (<?= count($user->answeredQuestions) ?> st)</h2>
         <ol>
-            <?php foreach($user->answeredQuestions as $question) : ?>
+            <?php foreach ($user->answeredQuestions as $question) : ?>
                 <li><a href="<?= $this->di->get('url')->create('questions/' . $question->id) ?>"><?= $question->title ?></a></li>
             <?php endforeach; ?>
         </ol>

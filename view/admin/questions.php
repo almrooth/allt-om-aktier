@@ -8,13 +8,13 @@
             <th></th>
         </thead>
         <tbody>
-            <?php foreach($questions as $question) : ?>
+            <?php foreach ($questions as $question) : ?>
                 <tr>
                     <td><a href="<?= $this->di->get('url')->create('questions/' . $question->id) ?>"><?= $question->title ?></a></td>
                     <td><a href="<?= $this->di->get('url')->create('user/profile/' . $question->user->id) ?>"><?= $question->user->username ?></a></td>
                     <td>
-                        <a href="" class="btn btn-green">Redigera</a>
-                        <a href="" class="btn btn-green">Ta bort</a>
+                        <a href="<?= $this->di->get('url')->create('questions/' . $question->id . '/update') ?>" class="btn btn-green">Redigera</a>
+                        <a href="<?= $this->di->get('url')->create('questions/' . $question->id . '/delete') ?>" class="btn btn-green">Ta bort</a>
                     </td>
                 </tr>
                 

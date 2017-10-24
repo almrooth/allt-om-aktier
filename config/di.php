@@ -166,5 +166,21 @@ return [
                 return $obj;
             }
         ],
+        "commentsController" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \App\Controllers\CommentsController();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
+        "votesController" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \App\Controllers\VotesController();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
     ],
 ];
