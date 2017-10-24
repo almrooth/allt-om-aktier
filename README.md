@@ -1,5 +1,8 @@
 # Allt om aktier (all about stocks)
 
+[![Build Status](https://travis-ci.org/almrooth/allt-om-aktier.svg?branch=master)](https://travis-ci.org/almrooth/allt-om-aktier)
+[![Build Status](https://scrutinizer-ci.com/g/almrooth/allt-om-aktier/badges/build.png?b=master)](https://scrutinizer-ci.com/g/almrooth/allt-om-aktier/build-status/master)
+
 The final project for the course "ramverk 1" at Blekinge Tekniska Högskola.
 
 This is a kind of social networking site where users can register and ask, answer and comment on questions.
