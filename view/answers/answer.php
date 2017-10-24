@@ -1,13 +1,17 @@
 <div class="answer">
-    <?php if ($this->di->get("session")->get("user_id") == $answer->user_id || $this->di->get("session")->get("user_role") == "admin") : ?>
+    <?php if ($this->di->get("session")->get("user_id") == $answer->user_id || $this->di->get("session")->get("user_role") == "admin" || $this->di->get("session")->get("user_id") == $question->user_id) : ?>
         <div class="menu flex flex-between-center">
-            <a class="btn" href="<?= $this->di->get('url')->create('answers/' . $answer->id . '/update') ?>">Redigera</a>
-            <?php if ($answer->accepted) : ?>
+            <?php if ($this->di->get("session")->get("user_id") == $answer->user_id || $this->di->get("session")->get("user_role") == "admin") : ?>
+                <a class="btn" href="<?= $this->di->get('url')->create('answers/' . $answer->id . '/update') ?>">Redigera</a>
+            <?php endif; ?>
+            <?php if ($answer->accepted && ($question->user_id == $this->di->get("session")->get("user_id"))) : ?>
                 <a class="btn" href="<?= $this->di->get('url')->create('answers/' . $answer->id . '/accept') ?>">Ångra acceptera svar</a>
-            <?php else : ?>
+            <?php elseif ($question->user_id == $this->di->get("session")->get("user_id")) : ?>
                 <a class="btn" href="<?= $this->di->get('url')->create('answers/' . $answer->id . '/accept') ?>">Acceptera svar</a>
             <?php endif; ?>
-            <a class="btn" href="<?= $this->di->get('url')->create('answers/' . $answer->id . '/delete') ?>">Radera</a>
+            <?php if ($this->di->get("session")->get("user_id") == $answer->user_id || $this->di->get("session")->get("user_role") == "admin") : ?>
+                <a class="btn" href="<?= $this->di->get('url')->create('answers/' . $answer->id . '/delete') ?>">Radera</a>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
     <div class="content">
@@ -22,12 +26,14 @@
         <div class="summary">
         <a href="<?= $this->di->get('url')->create('answers/' . $answer->id . '/comments') ?>"><?= count($answer->comments) ?> kommentarer</a>
         </div>
+        <?php if ($this->di->get("session")->has("username")) : ?>
         <div>
             Betyg: <?= $answer->votes ?>
             Rösta: 
             <a class="btn" href="<?= $this->di->get('url')->create('vote/answer/' . $answer->id . '/up') ?>">+</a>
             <a class="btn" href="<?= $this->di->get('url')->create('vote/answer/' . $answer->id . '/down') ?>">-</a>
         </div>
+        <?php endif; ?>
         <div class="meta">
             <div>
                 <div class="created">

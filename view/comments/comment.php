@@ -12,12 +12,14 @@
         <div class="summary">
             
         </div>
+        <?php if ($this->di->get("session")->has("username")) : ?>
         <div>
             Betyg: <?= $comment->votes ?>
             Rösta: 
             <a class="btn" href="<?= $this->di->get('url')->create('vote/comment/' . $comment->id . '/up') ?>">+</a>
             <a class="btn" href="<?= $this->di->get('url')->create('vote/comment/' . $comment->id . '/down') ?>">-</a>
         </div>
+        <?php endif; ?>
         <div class="meta">
             <div>
                 <div class="created">

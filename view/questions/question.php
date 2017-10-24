@@ -36,14 +36,14 @@
                     <a href="<?= $this->di->get('url')->create('questions/' . $question->id) ?>"><?= count($question->answers) ?> svar</a>
                     | <a href="<?= $this->di->get('url')->create('questions/' . $question->id . '/comments') ?>"><?= count($question->comments) ?> kommentarer</a>
                 </div>
-
+                <?php if ($this->di->get("session")->has("username")) : ?>
                 <div>
                     Betyg: <?= $question->votes ?>
                     Rösta: 
                     <a class="btn" href="<?= $this->di->get('url')->create('vote/question/' . $question->id . '/up') ?>">+</a>
                     <a class="btn" href="<?= $this->di->get('url')->create('vote/question/' . $question->id . '/down') ?>">-</a>
                 </div>
-                
+                <?php endif; ?>
             </div>
         </footer>
     </article>

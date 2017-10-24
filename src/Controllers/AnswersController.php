@@ -9,6 +9,7 @@ use \App\Comment\HTMLForm\AddCommentForm;
 use \App\Answer\HTMLForm\UpdateAnswerForm;
 use \App\Answer\Answer;
 use \App\Comment\Comment;
+use \App\Question\Question;
 
 /**
  * A controller class.
@@ -109,7 +110,11 @@ class AnswersController implements
         $answer->setDb($this->di->get("db"));
         $answer->find("id", $id);
 
-        if (!($user_id == $answer->user_id || $user_role == "admin")) {
+        $question = new Question();
+        $question->setDb($this->di->get("db"));
+        $question->find("id", $answer->question_id);
+
+        if (!($user_id == $question->user_id || $user_role == "admin")) {
             $this->di->get("response")->redirect("questions");
         }
 
